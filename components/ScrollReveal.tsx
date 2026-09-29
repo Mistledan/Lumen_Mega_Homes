@@ -1,0 +1,3 @@
+'use client';
+import {useEffect} from 'react';
+export default function ScrollReveal(){useEffect(()=>{const sel='.search-panel,.section-head,.about-grid>*,.contact-grid>*,.stats>*,.grid-3>*,.grid-4>*,.quote-inner,.cta>*,.footer-grid>*';const els:Element[]=Array.from(document.querySelectorAll(sel));const dels=['','d1','d2','d3','d4'];els.forEach((e,i)=>{const d=dels[i%5];e.classList.add('srx');if(d)e.classList.add(d)});const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('on');io.unobserve(en.target)}}),{threshold:.1,rootMargin:'0px 0px -6% 0px'});els.forEach(e=>io.observe(e));return()=>io.disconnect()},[]);return null}

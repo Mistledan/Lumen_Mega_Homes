@@ -1,0 +1,123 @@
+generator client {
+  provider     = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+}
+
+model Session {
+  id          String    @id @default(cuid())
+  tokenHash   String    @unique
+  expiresAt   DateTime
+  createdAt   DateTime  @default(now())
+  adminUserId String
+  adminUser   AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}
+
+model SiteContent {
+  id           String   @id
+  brandName    String
+  phone        String
+  email        String
+  address      String
+  description  String
+  hero         Json
+  about        Json
+  stats        Json
+  services     Json
+  testimonials Json
+  footer       Json
+  team         Json     @default("[]")
+  updatedAt    DateTime @updatedAt
+}
+
+model Property {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  type             String
+  status           String
+  location         String
+  price            Int?
+  priceLabel       String?
+  shortDescription String?
+  description      String
+  bedrooms         Int?
+  bathrooms        Int?
+  area             String?
+  plotSize         String?
+  images           Json
+  amenities        Json
+  featured         Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([status])
+  @@index([type])
+  @@index([location])
+  @@index([featured])
+}
+
+model Estate {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  location      String
+  description   String
+  startingPrice String?
+  image         String
+  gallery       Json
+  amenities     Json
+  featured      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([featured])
+  @@index([location])
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  interest  String?
+  message   String?
+  source    String?
+  status    String   @default("NEW")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String
+  content     String
+  image       String?
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([published])
+}

@@ -1,0 +1,5 @@
+import './globals.css';
+import type {Metadata, Viewport} from 'next';
+export const metadata:Metadata={title:'Lumen Mega Homes',description:'Luxury homes, premium estates and trusted real-estate advisory across Nigeria.',metadataBase:new URL(process.env.NEXT_PUBLIC_SITE_URL||'http://localhost:3002'),openGraph:{title:'Lumen Mega Homes',description:'Luxury homes, premium estates and trusted real-estate advisory across Nigeria.',siteName:'Lumen Mega Homes',type:'website',url:'/'},twitter:{card:'summary_large_image',title:'Lumen Mega Homes',description:'Luxury homes, premium estates and trusted real-estate advisory across Nigeria.'},icons:{icon:'/favicon.ico',apple:'/apple-icon.png'}};
+export const viewport:Viewport={width:'device-width',initialScale:1,viewportFit:'cover',themeColor:'#0b231a'};
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}</body></html>}

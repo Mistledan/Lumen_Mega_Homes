@@ -1,0 +1,1 @@
+ALTER TABLE "SiteContent" ADD COLUMN "team" JSONB NOT NULL DEFAULT '[]';

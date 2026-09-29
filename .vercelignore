@@ -1,0 +1,10 @@
+.pgdata
+.next
+node_modules
+.env
+.env.*
+!.env.example
+*.log
+server/scripts
+docker-compose.yml
+start-dev.cmd

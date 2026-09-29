@@ -1,0 +1,6 @@
+import {Router} from 'express'; import {z} from 'zod'; import {prisma} from '../db'; import {requireAuth} from '../auth';
+const r=Router(); const schema=z.object({title:z.string().min(2),slug:z.string().min(2),excerpt:z.string(),content:z.string(),image:z.string().nullable().optional(),published:z.boolean().optional(),publishedAt:z.coerce.date().nullable().optional()});
+r.get('/',async(req,res)=>{if(req.query.admin==='true'){return requireAuth(req,res,async()=>res.json(await prisma.post.findMany({orderBy:{createdAt:'desc'},take:100})))}return res.json(await prisma.post.findMany({where:{published:true},orderBy:{publishedAt:'desc'},take:50}))});
+r.post('/',requireAuth,async(req,res)=>{const p=schema.safeParse(req.body);if(!p.success)return res.status(400).json({message:'Invalid post'});res.status(201).json(await prisma.post.create({data:p.data as any}))});
+r.patch('/:id',requireAuth,async(req,res)=>{const p=schema.partial().safeParse(req.body);if(!p.success)return res.status(400).json({message:'Invalid post'});res.json(await prisma.post.update({where:{id:String(req.params.id)},data:p.data as any}))});
+r.delete('/:id',requireAuth,async(req,res)=>{await prisma.post.delete({where:{id:String(req.params.id)}});res.status(204).end()}); export default r;

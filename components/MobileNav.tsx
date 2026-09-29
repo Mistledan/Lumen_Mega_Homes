@@ -1,0 +1,6 @@
+'use client';
+import Link from 'next/link';
+import {usePathname} from 'next/navigation';
+import {useEffect, useState} from 'react';
+const LINKS:[string,string][]=[['/','Home'],['/properties','Properties'],['/estates','Estates'],['/about','About'],['/blog','Journal'],['/contact','Contact']];
+export default function MobileNav(){const[open,setOpen]=useState(false);const path=usePathname();useEffect(()=>{if(!open)return;const prev=document.body.style.overflow;document.body.style.overflow='hidden';const onKey=(e:KeyboardEvent)=>{if(e.key==='Escape')setOpen(false)};window.addEventListener('keydown',onKey);return()=>{document.body.style.overflow=prev;window.removeEventListener('keydown',onKey)}},[open]);return<><button type="button" className={`nav-toggle${open?' open':''}`} aria-label={open?'Close menu':'Open menu'} aria-expanded={open} aria-controls="mobile-menu" onClick={()=>setOpen(v=>!v)}><span/><span/><span/></button><div id="mobile-menu" className={`mobile-menu${open?' open':''}`}><nav className="mobile-links">{LINKS.map(([href,label])=><Link key={href} href={href} className={path===href||path.startsWith(href+'/')?'active':''} onClick={()=>setOpen(false)}>{label}</Link>)}</nav><Link href="/contact" className="btn btn-primary mobile-cta" onClick={()=>setOpen(false)}>Book a viewing</Link></div></>}

@@ -1,0 +1,7 @@
+import {Router} from 'express'; import {z} from 'zod'; import {prisma} from '../db'; import {requireAuth} from '../auth';
+const r=Router(); const schema=z.object({title:z.string().min(2),slug:z.string().min(2),location:z.string(),description:z.string().min(2),startingPrice:z.string().nullable().optional(),image:z.string().min(4),gallery:z.array(z.string()),amenities:z.array(z.string()),featured:z.boolean().optional()});
+r.get('/',async(req,res)=>{const where:any={};if(req.query.featured==='true')where.featured=true;res.json(await prisma.estate.findMany({where,orderBy:{createdAt:'desc'},take:100}))});
+r.get('/:slug',async(req,res)=>{const e=await prisma.estate.findUnique({where:{slug:req.params.slug}});return e?res.json(e):res.status(404).json({message:'Not found'})});
+r.post('/',requireAuth,async(req,res)=>{const p=schema.safeParse(req.body);if(!p.success)return res.status(400).json({message:'Invalid estate'});try{return res.status(201).json(await prisma.estate.create({data:p.data as any}))}catch{return res.status(409).json({message:'Slug already exists'})}});
+r.patch('/:id',requireAuth,async(req,res)=>{const p=schema.partial().safeParse(req.body);if(!p.success)return res.status(400).json({message:'Invalid estate'});res.json(await prisma.estate.update({where:{id:String(req.params.id)},data:p.data as any}))});
+r.delete('/:id',requireAuth,async(req,res)=>{await prisma.estate.delete({where:{id:String(req.params.id)}});res.status(204).end()}); export default r;

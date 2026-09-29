@@ -1,0 +1,47 @@
+{
+  "name": "luxury-real-estate-platform",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n db,api,web -c blue,green,magenta \"npm:db:boot\" \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:web": "next dev -p 3002",
+    "dev:api": "tsx server/src/index.ts",
+    "start:api": "tsx server/src/index.ts",
+    "db:boot": "tsx server/scripts/boot-db.ts",
+    "build": "prisma generate --schema server/prisma/schema.prisma && next build",
+    "start": "next start -p 3002",
+    "db:generate": "prisma generate --schema server/prisma/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema server/prisma/schema.prisma",
+    "db:deploy": "prisma migrate deploy --schema server/prisma/schema.prisma",
+    "db:seed": "tsx server/prisma/seed.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@embedded-postgres/windows-x64": "^18.4.0-beta.17",
+    "@prisma/client": "^6.18.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^18.0.1",
+    "embedded-postgres": "^18.4.0-beta.17",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "next": "16.2.3",
+    "pg": "^8.23.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
+    "@types/node": "^20.19.13",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "concurrently": "^9.2.1",
+    "prisma": "^6.18.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.3"
+  }
+}

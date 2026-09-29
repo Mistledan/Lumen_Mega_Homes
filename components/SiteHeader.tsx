@@ -1,0 +1,3 @@
+import Link from 'next/link';
+import MobileNav from '@/components/MobileNav';
+export default function SiteHeader({brand='LUMEN MEGA HOMES'}:{brand?:string}){return <header className="site-header"><div className="container nav"><Link href="/" className="brand"><div className="brand-mark logo"><img src="/logo.png" alt={brand}/></div><div><strong>{brand}</strong><span>PREMIUM PROPERTIES</span></div></Link><nav className="nav-links"><Link href="/">Home</Link><Link href="/properties">Properties</Link><Link href="/estates">Estates</Link><Link href="/about">About</Link><Link href="/blog">Journal</Link><Link href="/contact">Contact</Link></nav><MobileNav/></div></header>}
