@@ -39,3 +39,79 @@ html{scroll-behavior:smooth}
 .link-arrow{transition:letter-spacing .25s ease,color .25s ease}.link-arrow:hover{letter-spacing:.17em;color:#5c431f}
 .stat{transition:transform .35s ease}.stat:hover{transform:translateY(-3px)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.srx{opacity:1!important;transform:none!important}.hero-inner>*{opacity:1!important}.page-hero .container>*{opacity:1!important}}
+
+.admin-title{font-size:54px}
+.admin-login-title{font-size:56px;line-height:.94}
+@media(max-width:640px){
+	.site-header .nav{min-height:72px;gap:12px}
+	.brand{min-width:0;gap:8px}
+	.brand-mark.logo{height:38px}
+	.brand-mark.logo img{height:38px;max-width:78px;object-fit:contain}
+	.brand strong{font-size:11px;letter-spacing:.04em;white-space:nowrap}
+	.brand span{font-size:8px;letter-spacing:.1em}
+	.nav-toggle{flex:0 0 44px}
+	.mobile-menu.open{height:calc(100dvh - 72px)}
+	.hero{min-height:600px}
+	.hero-inner{padding:82px 0 70px}
+	.hero h1{font-size:54px;line-height:.92}
+	.hero p{font-size:16px;line-height:1.6}
+	.section{padding:60px 0}
+	.section-head{margin-bottom:28px}
+	.section-head p{margin-top:16px}
+	.about-image{min-height:280px}
+	.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+	.stat{padding:20px 14px}
+	.stat strong{font-size:32px}
+	.stat span{font-size:10px;letter-spacing:.04em}
+	.property-card img,.team-card img{height:240px}
+	.footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px}
+	.footer-grid>div:first-child{grid-column:1/-1}
+	.footer p{overflow-wrap:anywhere}
+	.footer-bottom{display:flex;flex-direction:column;margin-top:30px}
+	.admin-bar{padding:12px 14px;gap:8px}
+	.admin-main{grid-template-columns:minmax(0,1fr);min-width:0}
+	.admin-nav{position:sticky;top:0;z-index:25;min-width:0;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;padding:8px 10px;scrollbar-width:thin}
+	.admin-nav a{display:flex;align-items:center;flex:0 0 auto;min-height:42px;margin:0;padding:0 10px}
+	.admin-content{min-width:0;padding:20px 14px}
+	.admin-content .section-head{margin-bottom:24px}
+	.admin-title{font-size:38px}
+	.admin-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+	.admin-stat{padding:14px}
+	.admin-stat strong{font-size:24px}
+	.admin-content .panel:has(.admin-table){min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+	.admin-table{display:table;min-width:650px;width:100%}
+	.admin-content .panel div[style*="grid-template-columns"]{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}
+	.admin-content .panel div[style*="grid-template-columns"]>div:first-child{grid-column:1/-1}
+	.admin-login-title{font-size:42px!important}
+}
+@media(max-width:480px){
+	.hero h1{font-size:48px}
+	.search-card{padding:16px}
+	.hero .actions .btn,.cta .actions .btn{width:100%}
+	.admin-bar{align-items:stretch;flex-direction:column}
+	.admin-bar>div{width:100%;justify-content:space-between;overflow-wrap:anywhere}
+	.admin-content{padding:16px 12px}
+	.admin-title{font-size:34px}
+	.admin-nav a{font-size:12px}
+	.admin-content .panel:has(.admin-table){padding:16px}
+	.admin-table{min-width:680px}
+	.admin-content .btn-small{min-height:42px}
+}
+@media(max-width:360px){
+	.admin-content .panel div[style*="grid-template-columns"]>input.field{grid-column:1/-1}
+}
+.social-icon-link{animation:socialIconEnter .55s cubic-bezier(.2,.7,.2,1) both;transition:transform .22s ease,box-shadow .22s ease}
+.social-icon-link:nth-child(2){animation-delay:.06s}
+.social-icon-link:nth-child(3){animation-delay:.12s}
+.social-icon-link:nth-child(4){animation-delay:.18s}
+.social-icon-link:nth-child(5){animation-delay:.24s}
+.social-icon-link:nth-child(6){animation-delay:.3s}
+.social-icon-link:nth-child(7){animation-delay:.36s}
+.social-icon-link svg{transition:transform .25s ease}
+.social-icon-link:hover{transform:translateY(-4px) scale(1.06);box-shadow:0 8px 20px rgba(0,0,0,.2)!important}
+.social-icon-link:hover svg{transform:scale(1.12) rotate(-5deg)}
+@keyframes socialIconEnter{from{opacity:0;transform:translateY(12px) scale(.88)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(hover:none){
+	.property-card:hover,.team-card:hover,.service:hover,.panel:hover{transform:none;box-shadow:none}
+	.property-card:hover img,.team-card:hover img,.card:hover img{transform:none}
+}

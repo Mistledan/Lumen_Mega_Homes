@@ -1,0 +1,1 @@
+ALTER TABLE "SiteContent" ADD COLUMN "socials" JSONB NOT NULL DEFAULT '{}';

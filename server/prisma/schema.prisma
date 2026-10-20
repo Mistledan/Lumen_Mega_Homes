@@ -43,6 +43,7 @@ model SiteContent {
   testimonials Json
   footer       Json
   team         Json     @default("[]")
+  socials      Json     @default("{}")
   updatedAt    DateTime @updatedAt
 }
 

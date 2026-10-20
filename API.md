@@ -16,6 +16,7 @@ Base URL: `/api/v1`
 - `POST /auth/logout`
 - `GET /auth/me`
 - `PUT /content`
+- `GET/PUT /socials`
 - `POST/PATCH/DELETE /properties`
 - `POST/PATCH/DELETE /estates`
 - `POST/PATCH/DELETE /posts`
