@@ -8,7 +8,7 @@
     "dev:api": "tsx server/src/index.ts",
     "start:api": "tsx server/src/index.ts",
     "db:boot": "tsx server/scripts/boot-db.ts",
-    "build": "prisma generate --schema server/prisma/schema.prisma && next build",
+    "build": "prisma generate --schema server/prisma/schema.prisma && next build --webpack",
     "start": "next start -p 3002",
     "db:generate": "prisma generate --schema server/prisma/schema.prisma",
     "db:migrate": "prisma migrate dev --schema server/prisma/schema.prisma",
