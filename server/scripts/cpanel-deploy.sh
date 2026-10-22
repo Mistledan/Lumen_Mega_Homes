@@ -56,6 +56,7 @@ npm install --no-audit --no-fund --loglevel=error
 # 5. Build (prisma generate + next build --webpack)
 echo "[5/7] npm run build ..."
 export NEXT_TELEMETRY_DISABLED=1
+export NODE_ENV=production
 export NODE_OPTIONS="--max-old-space-size=2048"
 npm run build
 
