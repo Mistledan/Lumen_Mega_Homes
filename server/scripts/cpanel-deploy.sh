@@ -44,7 +44,12 @@ if [ -n "${DB_USER:-}" ]; then
     echo "NEXT_PUBLIC_SITE_URL=\"https://lumenmegahomes.com\""
     echo "NEXT_PUBLIC_API_URL=\"/api/v1\""
   } > .env
-  echo "[3/7] .env written for database user ${DB_USER}"
+  export DATABASE_URL="$NEW_URL"
+  export DIRECT_URL="$NEW_URL"
+  if [ -f "$HTACCESS" ]; then
+    sed -i -E "s#^(SetEnv (DATABASE_URL|DIRECT_URL) ).*#\1${NEW_URL}#" "$HTACCESS" || true
+  fi
+  echo "[3/7] .env + .htaccess set for database user ${DB_USER}"
 elif [ ! -f .env ]; then
   db_url="$(grep -m1 -o 'SetEnv DATABASE_URL [^ ]*' "$HTACCESS" 2>/dev/null | awk '{print $3}' || true)"
   direct_url="$(grep -m1 -o 'SetEnv DIRECT_URL [^ ]*' "$HTACCESS" 2>/dev/null | awk '{print $3}' || true)"

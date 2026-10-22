@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.join(__dirname, '..', '..');
-require('dotenv').config({ path: path.join(root, '.env') });
+require('dotenv').config({ path: path.join(root, '.env'), override: true });
 
 const { Client } = require('pg');
 
