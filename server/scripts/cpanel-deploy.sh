@@ -11,6 +11,10 @@ echo " LUMEN MEGA HOMES deploy"
 echo " app root: $APP_ROOT"
 echo "=============================================="
 
+# 0. Discard local edits to build-generated files so "git pull" never conflicts
+git checkout -- next-env.d.ts 2>/dev/null || true
+git checkout -- tsconfig.tsbuildinfo 2>/dev/null || true
+
 # 1. Use the cPanel node environment when present
 VENV_BIN="/home/lumenmeg/nodevenv/public_html/nodeapps/22/bin"
 VENV_NM="/home/lumenmeg/nodevenv/public_html/nodeapps/22/lib/node_modules"
