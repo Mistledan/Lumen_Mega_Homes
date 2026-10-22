@@ -14,6 +14,8 @@ try {
 const app = next({ dev: false });
 const handle = app.getRequestHandler();
 
+console.log("[lumen] starting app port=" + (process.env.PORT || "(unset)"));
+
 app.prepare()
   .then(() => {
     http.createServer((req, res) => {
