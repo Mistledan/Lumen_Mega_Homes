@@ -32,7 +32,7 @@ fi
 # 3. Build .env from the cPanel .htaccess SetEnv values (Apache ignores SetEnv in IfModule Litespeed)
 HTACCESS="/home/lumenmeg/public_html/.htaccess"
 PEPPER_DEFAULT="1d7ee7148e4f4fb46e002bd34d7077ee4440afb4f6b17cb5eb1ee5e8cec545da"
-DB_NAME="lumenmeg_lmhadmin"
+DB_NAME="${DB_NAME:-lumenmeg_lmhadmin}"
 
 if [ -n "${DB_USER:-}" ]; then
   NEW_URL="postgresql://${DB_USER}:${DB_PASS:-}@localhost:5432/${DB_NAME}?schema=public"
