@@ -29,11 +29,21 @@ const sqlFile = path.join(root, 'database', 'lumen_megahomes.sql');
   const client = new Client({ connectionString });
   await client.connect();
   try {
+    const who = await client.query('SELECT current_user AS u');
+    console.log('connected as: ' + who.rows[0].u);
     await client.query(sql);
     console.log('SQL executed OK');
   } catch (error) {
+    const message = error && error.message ? error.message : String(error);
     console.error('SQL IMPORT FAILED');
-    console.error(error && error.message ? error.message : error);
+    console.error(message);
+    if (/must be owner of|permission denied/i.test(message)) {
+      console.error('');
+      console.error('HINT: this role does not own the existing tables.');
+      console.error('      In cPanel > PostgreSQL Databases > Users, change the password of the');
+      console.error('      user created together with the database (the owner), then re-run:');
+      console.error('      DB_USER=<owner-user> DB_PASS=\'<new-password>\' bash server/scripts/cpanel-deploy.sh');
+    }
     await client.end();
     process.exit(1);
   }
