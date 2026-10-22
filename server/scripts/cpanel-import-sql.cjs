@@ -6,13 +6,15 @@ require('dotenv').config({ path: path.join(root, '.env'), override: true });
 
 const { Client } = require('pg');
 
-const rawUrl = process.env.DATABASE_URL;
+const rawUrl = process.argv[2] || process.env.DATABASE_URL;
 if (!rawUrl) {
   console.error('DATABASE_URL is not set. Set it in the Node.js App environment or in .env');
   process.exit(1);
 }
 
 const connectionString = rawUrl.split('?')[0];
+const schemaMatch = rawUrl.match(/[?&]schema=([^&]+)/);
+const schema = (process.env.DB_SCHEMA || (schemaMatch ? schemaMatch[1] : 'public')).replace(/"/g, '');
 const sqlFile = path.join(root, 'database', 'lumen_megahomes.sql');
 
 (async () => {
@@ -31,6 +33,11 @@ const sqlFile = path.join(root, 'database', 'lumen_megahomes.sql');
   try {
     const who = await client.query('SELECT current_user AS u');
     console.log('connected as: ' + who.rows[0].u);
+    console.log('target schema: ' + schema);
+    if (schema !== 'public') {
+      await client.query('CREATE SCHEMA IF NOT EXISTS "' + schema + '"');
+      await client.query('SET search_path TO "' + schema + '"');
+    }
     await client.query(sql);
     console.log('SQL executed OK');
   } catch (error) {

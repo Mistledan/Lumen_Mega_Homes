@@ -56,6 +56,16 @@ const connectionString = dbUser
   }
   console.log('');
 
+  console.log('');
+  console.log('schemas:');
+  const schemas = await client.query(
+    "SELECT nspname AS name, pg_get_userbyid(nspowner) AS owner FROM pg_namespace WHERE nspname NOT LIKE 'pg_%' ORDER BY nspname"
+  );
+  for (const s of schemas.rows) {
+    console.log('  ' + s.name + '  ->  ' + s.owner);
+  }
+  console.log('');
+
   console.log('table owners in schema public:');
   const tables = await client.query(
     "SELECT tablename, tableowner FROM pg_tables WHERE schemaname = 'public' ORDER BY tablename"

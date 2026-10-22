@@ -33,9 +33,10 @@ fi
 HTACCESS="/home/lumenmeg/public_html/.htaccess"
 PEPPER_DEFAULT="1d7ee7148e4f4fb46e002bd34d7077ee4440afb4f6b17cb5eb1ee5e8cec545da"
 DB_NAME="${DB_NAME:-lumenmeg_lmhadmin}"
+DB_SCHEMA="${DB_SCHEMA:-public}"
 
 if [ -n "${DB_USER:-}" ]; then
-  NEW_URL="postgresql://${DB_USER}:${DB_PASS:-}@localhost:5432/${DB_NAME}?schema=public"
+  NEW_URL="postgresql://${DB_USER}:${DB_PASS:-}@localhost:5432/${DB_NAME}?schema=${DB_SCHEMA}"
   {
     echo "DATABASE_URL=\"${NEW_URL}\""
     echo "DIRECT_URL=\"${NEW_URL}\""
@@ -46,6 +47,7 @@ if [ -n "${DB_USER:-}" ]; then
   } > .env
   export DATABASE_URL="$NEW_URL"
   export DIRECT_URL="$NEW_URL"
+  export DB_SCHEMA="$DB_SCHEMA"
   if [ -f "$HTACCESS" ]; then
     sed -i -E "s#^(SetEnv (DATABASE_URL|DIRECT_URL) ).*#\1${NEW_URL}#" "$HTACCESS" || true
   fi
