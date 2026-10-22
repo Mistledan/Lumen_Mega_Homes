@@ -31,15 +31,15 @@ fi
 
 # 3. Build .env from the cPanel .htaccess SetEnv values (Apache ignores SetEnv in IfModule Litespeed)
 HTACCESS="/home/lumenmeg/public_html/.htaccess"
+PEPPER_DEFAULT="1d7ee7148e4f4fb46e002bd34d7077ee4440afb4f6b17cb5eb1ee5e8cec545da"
 if [ ! -f .env ]; then
   db_url="$(grep -m1 -o 'SetEnv DATABASE_URL [^ ]*' "$HTACCESS" 2>/dev/null | awk '{print $3}' || true)"
   direct_url="$(grep -m1 -o 'SetEnv DIRECT_URL [^ ]*' "$HTACCESS" 2>/dev/null | awk '{print $3}' || true)"
-  pepper="$(grep -m1 -o "PASSWORD_PEPPER ||= '[^']*'" server/scripts/cpanel-setup.cjs | sed "s/.*'\(.*\)'/\1/" || true)"
+  [ -n "$direct_url" ] || direct_url="$db_url"
   {
-    [ -n "$direct_url" ] || direct_url="$db_url"
-    [ -n "$db_url" ] && echo "DATABASE_URL=\"$db_url\""
-    [ -n "$direct_url" ] && echo "DIRECT_URL=\"$direct_url\""
-    echo "PASSWORD_PEPPER=\"${pepper:-1d7ee7148e4f4fb46e002bd34d7077ee4440afb4f6b17cb5eb1ee5e8cec545da\""
+    echo "DATABASE_URL=\"${db_url}\""
+    echo "DIRECT_URL=\"${direct_url}\""
+    echo "PASSWORD_PEPPER=\"${PEPPER_DEFAULT}\""
     echo "SESSION_DAYS=\"7\""
     echo "NEXT_PUBLIC_SITE_URL=\"https://lumenmegahomes.com\""
     echo "NEXT_PUBLIC_API_URL=\"/api/v1\""
