@@ -1,3 +1,5 @@
+process.env.NODE_ENV = "production";
+
 const http = require("http");
 const { parse } = require("url");
 const next = require("next");

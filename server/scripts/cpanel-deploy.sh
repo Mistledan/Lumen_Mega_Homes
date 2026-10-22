@@ -56,9 +56,9 @@ npm install --no-audit --no-fund --loglevel=error
 # 5. Build (prisma generate + next build --webpack)
 echo "[5/7] npm run build ..."
 export NEXT_TELEMETRY_DISABLED=1
-export NODE_ENV=production
 export NODE_OPTIONS="--max-old-space-size=2048"
-npm run build
+npx prisma generate --schema server/prisma/schema.prisma
+node server/scripts/build-production.cjs
 
 # 6. Import the database (schema + content) from database/lumen_megahomes.sql
 echo "[6/7] importing database/lumen_megahomes.sql ..."
